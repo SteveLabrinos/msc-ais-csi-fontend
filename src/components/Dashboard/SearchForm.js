@@ -15,18 +15,18 @@ export default function SearchForm(props) {
     return (
         <form onSubmit={submit} className={classes.searchForm}>
             <Grid container justify="center" spacing={3} style={{ marginBottom: 20 }}>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4}>
                     <TextField
                         onChange={evt => input(evt.target.value)}
                         required
                         label="Ταινία"
                         placeholder="Εισάγετε Όνομα Ταινίας"
                         fullWidth
-                        inputProps={{ pattern: '[a-zA-Z]{1,15}' }}
+                        inputProps={{ pattern: '[a-zA-Z ]{1,15}' }}
                         value={query}
                     />
                 </Grid>
-                <Grid item xs={12} sm={2}>
+                <Grid item xs={12} sm={3}>
                     <Button
                         variant="contained"
                         size="large"

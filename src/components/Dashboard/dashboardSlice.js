@@ -52,9 +52,8 @@ export const fetchMovie = query => dispatch => {
             dispatch(movieSuccess(await response.json())) :
             dispatch(movieFail(response.status));
     };
-    console.log('started');
-    dispatch(movieStart());
 
+    dispatch(movieStart());
     getMovie().catch(error => console.log(error));
 };
 

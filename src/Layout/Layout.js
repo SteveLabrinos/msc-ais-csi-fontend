@@ -41,7 +41,7 @@ const Layout = props => {
             </Modal>
             <Navbar />
             <main className={classes.mainStyled}>
-                <Container maxWidth="lg">
+                <Container maxWidth="md">
                     {props.children}
                 </Container>
             </main>

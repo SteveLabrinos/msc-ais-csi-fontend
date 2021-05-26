@@ -1,4 +1,7 @@
 import { localDeployment } from '../App';
+import TvIcon from '@material-ui/icons/Tv';
+import TheatersRoundedIcon from '@material-ui/icons/TheatersRounded';
+import MovieCreationTwoToneIcon from '@material-ui/icons/MovieCreationTwoTone';
 
 export const baseURL = localDeployment ?
     'http://localhost:5000/api/' :
@@ -25,4 +28,12 @@ export const a11yProps = index => {
         id: `full-width-tab-${index}`,
         'aria-controls': `full-width-tabpanel-${index}`,
     };
+};
+
+export const mapIconsToMovieType = movieType => {
+    switch (movieType) {
+        case 'movie': return <TheatersRoundedIcon fontSize="large" />;
+        case 'series': return <TvIcon fontSize="large" />;
+        default: return <MovieCreationTwoToneIcon fontSize="large" />;
+    }
 };

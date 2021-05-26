@@ -1,18 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { makeStyles, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import SearchIcon from '@material-ui/icons/Search';
 import LoadingProgress from '../../UI/LoadingProgress/LoadingProgress';
-import Title from '../../UI/Title/Title';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { dashboardSelector, fetchMovie } from './dashboardSlice';
 import SearchForm from './SearchForm';
+import MovieCard from './MovieCard';
 
 /**
  * @returns {JSX.Element}
@@ -46,16 +40,13 @@ export default function Dashboard () {
     const dispatch = useDispatch();
 
     const { movieLoading, movieError, movie } = useSelector(dashboardSelector);
-    // const { transactionLoading } = useSelector(transactionSelector);
-    // const { monthlyIncome, dashboardLoading, incomes } = useSelector(dashboardSelector);
 
     // movie search field value handler
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('inception');
 
     //  calling the reducer to save to movie to the store
     const onFetchMovie = useCallback(event => {
         event.preventDefault();
-        console.log(`calling movie with query: ${query}`);
         dispatch(fetchMovie(query));
     }, [dispatch, query]);
 
@@ -63,10 +54,12 @@ export default function Dashboard () {
     const displayMovie = movieLoading ?
         <LoadingProgress /> :
         movieError ?
-            <Typography component="h4">Error fetching the movie</Typography> :
+            <Typography variant="h5" color="textPrimary">
+                <ErrorOutlineIcon style={{ fontSize: 30, paddingRight: 12, paddingTop: 10 }}/>
+                {`Δεν βρέθηκαν δεδομένα για την ταινία ${query}. Επιλέξτε νέα ταινία`}
+            </Typography> :
             movie ?
-                <Typography component="h4">Displaying movie HERE</Typography>
-                : null;
+                <MovieCard /> : null;
 
 
     return (
