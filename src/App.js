@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { makeStyles } from '@material-ui/core'
+import { lazy, Suspense } from 'react';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+
+import { theme } from './shared/theme';
+// import Layout from './hoc/Layout/Layout';
+// import LoadingProgress from './UI/LoadingProgress/LoadingProgress';
+
+const Dashboard = lazy(() => import(`./containers/Dashboard/Dashboard`));
+
+
+/** @author Stavros Labrinos [stalab at linuxmail.org] on 26/5/21.*/
+
+const useStyles = makeStyles(theme => ({
+  mainApp: {
+    fontSize: 'calc(8px + 2vmin)',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh'
+  }
+}));
+
+//  change to request backend communication locally or from deployed vm
+export const localDeployment = false;
 
 function App() {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={theme}>
+        <div className={classes.mainApp}>
+          <Layout>
+            <Suspense fallback={ <LoadingProgress /> }>{ authRouting }</Suspense>
+          </Layout>
+        </div>
+      </ThemeProvider>
   );
 }
 
-export default App;
+export default withRouter(App);
