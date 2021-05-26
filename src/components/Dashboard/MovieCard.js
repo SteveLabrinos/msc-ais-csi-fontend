@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
  * @author Stavros Lamprinos [stalab at linuxmail.org] on 26/5/2021.
  */
 
-export default function MovieCard() {
+export default function MovieCard({ videoRequest }) {
     const classes = useStyles();
     const { movie } = useSelector(dashboardSelector);
 
@@ -113,7 +113,11 @@ export default function MovieCard() {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" startIcon={<YouTubeIcon />}>
+                <Button
+                    size="small"
+                    color="primary"
+                    onClick={videoRequest}
+                    startIcon={<YouTubeIcon />}>
                     YOU TUBE VIDEOS
                 </Button>
             </CardActions>

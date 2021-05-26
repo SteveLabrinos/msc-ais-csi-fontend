@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseURL } from '../../shared/utility';
 
+// temporary setting
+const NUMBER_OF_VIDEOS = 5;
+
 export const dashboard = createSlice({
     name: 'dashboard',
     initialState: {
@@ -39,9 +42,11 @@ export const dashboard = createSlice({
     }
 });
 
+
 //  export the reducers to be used as actions
 export const { movieStart, movieFail, movieSuccess,
     videoStart, videoFail, videoSuccess } = dashboard.actions;
+
 
 //  use dispatch to include thunk and make async actions
 export const fetchMovie = query => dispatch => {
@@ -57,21 +62,22 @@ export const fetchMovie = query => dispatch => {
     getMovie().catch(error => console.log(error));
 };
 
-// export const fetchIncomesPerMonth = token => dispatch => {
-//     const getIncomesPerMonth = async () => {
-//         const response = await fetch(`${baseURL}transactions/income/monthly?tokenId=${token}`);
-//
-//         if (response.ok) {
-//             dispatch(incomesPerMonthSuccess(await response.json()));
-//         } else {
-//             dispatch(incomeFail(response.status));
-//         }
-//     };
-//
-//     dispatch(incomeStart());
-//
-//     getIncomesPerMonth().catch(error => console.log(error));
-// };
+export const fetchVideos = movieId => dispatch => {
+    const getVideos = async () => {
+        const response = await fetch(`${baseURL}video/${movieId}/total/${NUMBER_OF_VIDEOS}`);
+
+        if (response.ok) {
+            const payload = await response.json();
+            dispatch(videoSuccess(payload.videos));
+        } else {
+            dispatch(videoFail(response.status));
+        }
+    };
+
+    dispatch(videoStart());
+    getVideos().catch(error => console.log(error));
+};
+
 
 //  selectors
 export const dashboardSelector = state => state.dashboard;

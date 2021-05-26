@@ -4,7 +4,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LoadingProgress from '../../UI/LoadingProgress/LoadingProgress';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import { dashboardSelector, fetchMovie } from './dashboardSlice';
+import { dashboardSelector, fetchMovie, fetchVideos } from './dashboardSlice';
 import SearchForm from './SearchForm';
 import MovieCard from './MovieCard';
 
@@ -39,16 +39,23 @@ export default function Dashboard () {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const { movieLoading, movieError, movie } = useSelector(dashboardSelector);
+    const { movieLoading, movieError, movie,
+        videos, videoLoading, videoError} = useSelector(dashboardSelector);
 
     // movie search field value handler
     const [query, setQuery] = useState('inception');
 
-    //  calling the reducer to save to movie to the store
+    // calling the reducer to get the movie
     const onFetchMovie = useCallback(event => {
         event.preventDefault();
         dispatch(fetchMovie(query));
     }, [dispatch, query]);
+
+    // calling the reducer to get the movie's videos
+    const onFetchVideos = useCallback(() => {
+        dispatch(fetchVideos(movie.id));
+    }, [dispatch, movie]);
+
 
     // displaying elements
     const displayMovie = movieLoading ?
@@ -59,7 +66,17 @@ export default function Dashboard () {
                 {`Δεν βρέθηκαν δεδομένα για την ταινία ${query}. Επιλέξτε νέα ταινία`}
             </Typography> :
             movie ?
-                <MovieCard /> : null;
+                <MovieCard videoRequest={onFetchVideos} /> : null;
+
+    const displayVideos = videoLoading ?
+        <LoadingProgress /> :
+        videoError ?
+            <Typography variant="h5" color="textPrimary">
+                <ErrorOutlineIcon style={{ fontSize: 30, paddingRight: 12, paddingTop: 10 }}/>
+                {`Δεν ήταν δυνατή η ανάκτηση Video από το YouTube για την ταινία ${movie.title}. Επιλέξτε νέα ταινία`}
+            </Typography> :
+            videos.length !== 0 ?
+                <div>Videos HERE</div> : null;
 
 
     return (
@@ -72,6 +89,7 @@ export default function Dashboard () {
                 query={query} />
 
             {displayMovie}
+            {displayVideos}
         </React.Fragment>
     );
 }
