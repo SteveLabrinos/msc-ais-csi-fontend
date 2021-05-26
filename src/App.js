@@ -6,7 +6,7 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import { theme } from './shared/theme';
 // import Layout from './hoc/Layout/Layout';
-// import LoadingProgress from './UI/LoadingProgress/LoadingProgress';
+import LoadingProgress from './UI/LoadingProgress/LoadingProgress';
 
 const Dashboard = lazy(() => import(`./containers/Dashboard/Dashboard`));
 
@@ -28,11 +28,19 @@ export const localDeployment = false;
 function App() {
   const classes = useStyles();
 
+  const routing = (
+      <Switch>
+        <Route path="/reports" render={ props => <Report {...props} /> } />
+        <Route path="/" exact render={ props => <Dashboard {...props} /> } />
+        <Redirect to="/" />
+      </Switch>
+  );
+
   return (
       <ThemeProvider theme={theme}>
         <div className={classes.mainApp}>
           <Layout>
-            <Suspense fallback={ <LoadingProgress /> }>{ authRouting }</Suspense>
+            <Suspense fallback={ <LoadingProgress /> }>{ routing }</Suspense>
           </Layout>
         </div>
       </ThemeProvider>
