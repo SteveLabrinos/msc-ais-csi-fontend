@@ -2,13 +2,12 @@ import { makeStyles } from '@material-ui/core'
 import { lazy, Suspense } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
 
 import { theme } from './shared/theme';
-// import Layout from './hoc/Layout/Layout';
+import Layout from './Layout/Layout';
 import LoadingProgress from './UI/LoadingProgress/LoadingProgress';
 
-const Dashboard = lazy(() => import(`./containers/Dashboard/Dashboard`));
+const Dashboard = lazy(() => import(`./components/Dashboard/Dashboard`));
 
 
 /** @author Stavros Labrinos [stalab at linuxmail.org] on 26/5/21.*/
@@ -30,7 +29,7 @@ function App() {
 
   const routing = (
       <Switch>
-        <Route path="/reports" render={ props => <Report {...props} /> } />
+        {/*<Route path="/reports" render={ props => <Report {...props} /> } />*/}
         <Route path="/" exact render={ props => <Dashboard {...props} /> } />
         <Redirect to="/" />
       </Switch>

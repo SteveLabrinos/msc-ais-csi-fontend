@@ -27,10 +27,19 @@ const useStyles = makeStyles((theme) => ({
     img: {
         height: 80,
         textAlign: 'center',
-        flex: 2
+        flex: 1,
+        justifyContent: 'center'
     },
     logoStyle: {
-        display: 'flex'
+        display: 'flex',
+        textAlign: 'center'
+    },
+    [theme.breakpoints.up("md")]: {
+        img: {
+            display: 'flex',
+            position: 'relative',
+            right: '50%'
+        },
     },
     navigationItems: {
         flex: 1,
