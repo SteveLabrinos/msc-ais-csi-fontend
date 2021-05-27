@@ -39,13 +39,18 @@ export const dashboard = createSlice({
             state.videoLoading = false;
             state.videoError = null;
         },
+        videoClear: state => {
+            state.videos = [];
+            state.videoLoading = false;
+            state.videoError = null;
+        },
     }
 });
 
 
 //  export the reducers to be used as actions
 export const { movieStart, movieFail, movieSuccess,
-    videoStart, videoFail, videoSuccess } = dashboard.actions;
+    videoStart, videoFail, videoSuccess, videoClear } = dashboard.actions;
 
 
 //  use dispatch to include thunk and make async actions

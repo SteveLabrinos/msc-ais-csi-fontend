@@ -4,9 +4,10 @@ import { makeStyles, Typography } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LoadingProgress from '../../UI/LoadingProgress/LoadingProgress';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import { dashboardSelector, fetchMovie, fetchVideos } from './dashboardSlice';
+import { dashboardSelector, fetchMovie, fetchVideos, videoClear } from './dashboardSlice';
 import SearchForm from './SearchForm';
 import MovieCard from './MovieCard';
+import Videos from './Videos';
 
 /**
  * @returns {JSX.Element}
@@ -48,6 +49,7 @@ export default function Dashboard () {
     // calling the reducer to get the movie
     const onFetchMovie = useCallback(event => {
         event.preventDefault();
+        dispatch(videoClear());
         dispatch(fetchMovie(query));
     }, [dispatch, query]);
 
@@ -76,7 +78,7 @@ export default function Dashboard () {
                 {`Δεν ήταν δυνατή η ανάκτηση Video από το YouTube για την ταινία ${movie.title}. Επιλέξτε νέα ταινία`}
             </Typography> :
             videos.length !== 0 ?
-                <div>Videos HERE</div> : null;
+                <Videos videoList={videos} /> : null;
 
 
     return (

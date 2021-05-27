@@ -54,7 +54,7 @@ export default function MovieCard({ videoRequest }) {
     const { movie } = useSelector(dashboardSelector);
 
     return (
-        <Card>
+        <Card style={{ marginBottom: 16 }}>
             <CardActionArea href={`https://www.imdb.com/title/${movie.id}`} target="_blank"
                             rel="noreferrer">
                 <Grid container justify="center" spacing={1}>

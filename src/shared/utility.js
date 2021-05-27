@@ -37,3 +37,7 @@ export const mapIconsToMovieType = movieType => {
         default: return <MovieCreationTwoToneIcon fontSize="large" />;
     }
 };
+
+export const thousandsSeparator = num => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
