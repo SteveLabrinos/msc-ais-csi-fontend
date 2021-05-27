@@ -10,6 +10,11 @@ import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import MemoryIcon from '@material-ui/icons/Memory';
 
+/**
+ * @returns {JSX.Element}
+ * @author Stavros Labrinos [stalab at linuxmail.org] on 27/5/21.
+ */
+
 const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
@@ -48,9 +53,9 @@ export default function ProcessForm({ clicked }) {
 
     // actor screen times parameters
     const [values, setValues] = useState({
-        datasetSize: null,
-        datasetModel: null,
-        videoProcessModel: null,
+        datasetSize: '',
+        datasetModel: '',
+        videoProcessModel: '',
     });
 
     //  handle the changing values

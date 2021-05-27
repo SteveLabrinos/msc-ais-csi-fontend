@@ -5,10 +5,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import LoadingProgress from '../../UI/LoadingProgress/LoadingProgress';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { dashboardSelector, fetchMovie, fetchVideos, videoClear } from './dashboardSlice';
+import { setProcessValues } from '../VideoProcess/videoProcessSlice';
 import SearchForm from './SearchForm';
 import MovieCard from './MovieCard';
 import Videos from './Videos';
 import ProcessForm from './ProcessForm';
+import PrivacyPolicy from "../Navigation/Footer/FooterContent/PrivacyPolicy";
+import Modal from '../../UI/Modal/Modal';
+import VideoProcess from '../VideoProcess/VideoProcess';
 
 /**
  * @returns {JSX.Element}
@@ -59,10 +63,18 @@ export default function Dashboard () {
         dispatch(fetchVideos(movie.id));
     }, [dispatch, movie]);
 
+    // handle showing screen time processing modal window
+    const [processVisible, setProcessVisible] = useState(false);
+
+    const handleProcessVisible = () => {
+        setProcessVisible(!processVisible)
+    };
+
+    // set the user parameters for the process and open the modal window
     const onProcessVideo = (event, processValues) => {
         event.preventDefault();
-        console.log(processValues);
-        alert('opening modal');
+        dispatch(setProcessValues(processValues));
+        handleProcessVisible();
     };
 
 
@@ -98,6 +110,10 @@ export default function Dashboard () {
     return (
         <React.Fragment>
             <CssBaseline />
+            {/*<Modal show={privacyVisible} closeModal={handlePrivacyClose}>*/}
+            <Modal show={processVisible}>
+                <VideoProcess />
+            </Modal>
             <SearchForm
                 submit={onFetchMovie}
                 classes={classes}
