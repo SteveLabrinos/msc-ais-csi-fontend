@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseURL } from '../../shared/utility';
 
+/**
+ * @returns {JSX.Element}
+ * @author Stavros Lamprinos [stalab at linuxmail.org] on 26/5/2021.
+ */
+
 // temporary setting
 const NUMBER_OF_VIDEOS = 5;
 
@@ -12,7 +17,7 @@ export const dashboard = createSlice({
         movieError: null,
         videos: [],
         videoLoading: false,
-        videoError: null
+        videoError: null,
     },
     reducers: {
         movieStart: state => {

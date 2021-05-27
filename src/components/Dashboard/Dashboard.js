@@ -8,6 +8,7 @@ import { dashboardSelector, fetchMovie, fetchVideos, videoClear } from './dashbo
 import SearchForm from './SearchForm';
 import MovieCard from './MovieCard';
 import Videos from './Videos';
+import ProcessForm from './ProcessForm';
 
 /**
  * @returns {JSX.Element}
@@ -58,6 +59,12 @@ export default function Dashboard () {
         dispatch(fetchVideos(movie.id));
     }, [dispatch, movie]);
 
+    const onProcessVideo = (event, processValues) => {
+        event.preventDefault();
+        console.log(processValues);
+        alert('opening modal');
+    };
+
 
     // displaying elements
     const displayMovie = movieLoading ?
@@ -80,6 +87,13 @@ export default function Dashboard () {
             videos.length !== 0 ?
                 <Videos videoList={videos} /> : null;
 
+    const displayProcessVideo = videos.length === 0 ?
+        null :
+        videos[0].actors.length === 0 ?
+            <ProcessForm clicked={onProcessVideo} /> :
+            <div>Results Ready, Display ???</div>;
+
+
 
     return (
         <React.Fragment>
@@ -92,6 +106,7 @@ export default function Dashboard () {
 
             {displayMovie}
             {displayVideos}
+            {displayProcessVideo}
         </React.Fragment>
     );
 }

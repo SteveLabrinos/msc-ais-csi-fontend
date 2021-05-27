@@ -15,12 +15,18 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import CommentIcon from '@material-ui/icons/Comment';
 import { thousandsSeparator } from '../../shared/utility';
-import imgNotFound from "../../assets/images/image-not-found.png";
-import CardMedia from "@material-ui/core/CardMedia";
+import '../../assets/images/image-not-found.png';
+
+
+/**
+ * @returns {JSX.Element}
+ * @author Stavros Lamprinos [stalab at linuxmail.org] on 27/5/2021.
+ */
+
 
 const useStyles = makeStyles(({ palette }) => ({
     card: {
-        borderRadius: 12,
+        borderRadius: 5,
         minWidth: 256,
         textAlign: 'center',
         minHeight: 331
@@ -82,7 +88,8 @@ export const Videos = React.memo(function VideoCard({ videoList }) {
                             <CardContent style={{ minHeight: 201 }}>
                                 <Avatar
                                     className={classes.avatar}
-                                    src={video.imageUrl ? video.imageUrl : imgNotFound} />
+                                    src={video.imageUrl ? video.imageUrl :
+                                        '../../assets/images/image-not-found.png'} />
                                 <Typography variant="h6" component="h4">
                                     {video.title}
                                 </Typography>
