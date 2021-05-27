@@ -5,12 +5,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import LoadingProgress from '../../UI/LoadingProgress/LoadingProgress';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { dashboardSelector, fetchMovie, fetchVideos, videoClear } from './dashboardSlice';
-import { setProcessValues } from '../VideoProcess/videoProcessSlice';
+import { calculateScreenTimes } from '../VideoProcess/videoProcessSlice';
 import SearchForm from './SearchForm';
 import MovieCard from './MovieCard';
 import Videos from './Videos';
 import ProcessForm from './ProcessForm';
-import PrivacyPolicy from "../Navigation/Footer/FooterContent/PrivacyPolicy";
 import Modal from '../../UI/Modal/Modal';
 import VideoProcess from '../VideoProcess/VideoProcess';
 
@@ -73,8 +72,9 @@ export default function Dashboard () {
     // set the user parameters for the process and open the modal window
     const onProcessVideo = (event, processValues) => {
         event.preventDefault();
-        dispatch(setProcessValues(processValues));
         handleProcessVisible();
+        dispatch(calculateScreenTimes(movie.id, processValues));
+        // return  handleProcessVisible();
     };
 
 
