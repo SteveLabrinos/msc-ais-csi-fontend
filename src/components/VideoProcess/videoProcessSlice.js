@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseURL } from '../../shared/utility';
+import { videoSuccess } from '../Dashboard/dashboardSlice';
 
 /**
  * @returns {JSX.Element}
@@ -44,13 +45,37 @@ export const process = createSlice({
         encodingSuccess: state => {
             state.encoding = true;
         },
+        videoDownloadError: (state, action) => {
+            state.processError = action.payload;
+            state.videoDownload = false;
+        },
+        videoDownloadSuccess: state => {
+            state.videoDownload = true;
+        },
+        videoFramesError: (state, action) => {
+            state.processError = action.payload;
+            state.videoFrames = false;
+        },
+        videoFramesSuccess: state => {
+            state.videoFrames = true;
+        },
+        screenTimesError: (state, action) => {
+            state.processError = action.payload;
+            state.screenTimes = false;
+        },
+        screenTimeSuccess: state => {
+            state.screenTimes = true;
+            state.loading = false;
+            state.processError = null;
+        },
     }
 });
 
 
 //  export the reducers to be used as actions
 export const { setProcessValues, datasetError, processStart, datasetSuccess,
-    encodingError, encodingSuccess } = process.actions;
+    encodingError, encodingSuccess, videoDownloadError, videoDownloadSuccess,
+    videoFramesError, videoFramesSuccess, screenTimesError, screenTimeSuccess } = process.actions;
 
 
 //  use dispatch to include thunk and make async actions
@@ -73,26 +98,48 @@ export const calculateScreenTimes = (movieId, processValues) => dispatch => {
             dispatch(encodingError(response.status));
     };
 
+    const requestVideoDownload = async () => {
+        const response = await fetch(`${baseURL}video/download/${movieId}`);
+
+        response.ok ?
+            dispatch(videoDownloadSuccess()) :
+            dispatch(videoDownloadError(response.status));
+    };
+
+    const requestVideoFrames = async () => {
+        const response = await fetch(`${baseURL}video/frames/${movieId}`);
+
+        response.ok ?
+            dispatch(videoFramesSuccess()) :
+            dispatch(videoFramesSuccess(response.status));
+    };
+
+    const requestScreenTimes = async () => {
+        const response = await
+            fetch(`${baseURL}actor/screen-times/${movieId}/model/${processValues.videoProcessModel}`);
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(screenTimeSuccess());
+            dispatch(videoSuccess(data.videos));
+        } else {
+            dispatch(screenTimesError(response.status));
+        }
+    };
+
     dispatch(setProcessValues(processValues));
     dispatch(processStart());
     requestDatasetCreation()
-        .then(() => requestDatasetEncoding().catch(error => console.log(error)))
+        .then(() => requestDatasetEncoding()
+            .then(() => requestVideoDownload()
+                .then(() => requestVideoFrames()
+                    .then(() => requestScreenTimes()
+                        .catch(error => console.log(error)))
+                    .catch(error => console.log(error)))
+                .catch(error => console.log(error)))
+            .catch(error => console.log(error)))
         .catch(error => console.log(error));
 };
-
-
-// export const fetchMovie = query => dispatch => {
-//     const getMovie = async () => {
-//         const response = await fetch(`${baseURL}movie/alias/${query}`);
-//
-//         response.ok ?
-//             dispatch(movieSuccess(await response.json())) :
-//             dispatch(movieFail(response.status));
-//     };
-//
-//     dispatch(movieStart());
-//     getMovie().catch(error => console.log(error));
-// };
 
 
 //  selectors

@@ -103,7 +103,9 @@ export default function Dashboard () {
         null :
         videos[0].actors.length === 0 ?
             <ProcessForm clicked={onProcessVideo} /> :
-            <div>Results Ready, Display ???</div>;
+            // temp for testing
+            <ProcessForm clicked={onProcessVideo} />
+            // <div>Results Ready, Display ???</div>;
 
 
 
