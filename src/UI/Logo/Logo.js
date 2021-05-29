@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import erpLogo from '../../assets/images/ERP_logo_1_2_2_final_WOuterStroke_WLets.png';
-import erpLogoMobile from '../../assets/images/ERP_logo_final_logo only.png';
+import csiLogo from '../../assets/images/CSI_logo_1_2_2_final_WOuterStroke_WLets.png';
+import csiLogoMobile from '../../assets/images/CSI_logo_final_logo only.png';
 import papeiImg from '../../assets/images/papeiLogo.png'
 import classes from './Logo.module.css';
+
 
 /**
  * @returns {JSX.Element}
@@ -15,7 +16,7 @@ const logo = props => {
 
     switch (props.logoType) {
         case ('appLogo'):
-            preferences.src = props.mobile? erpLogoMobile : erpLogo;
+            preferences.src = props.mobile? csiLogoMobile : csiLogo;
             preferences.alt = 'Applications CSI Logo';
             break;
         case('papeiLogo'):

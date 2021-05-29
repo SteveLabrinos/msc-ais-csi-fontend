@@ -68,6 +68,18 @@ export const process = createSlice({
             state.loading = false;
             state.processError = null;
         },
+        processReset: state => {
+            state.processError = null;
+            state.loading = false;
+            state.screenTimes = false;
+            state.videoFrames = false;
+            state.videoDownload = false;
+            state.encoding = false;
+            state.dataset = false;
+            state.datasetSize = null;
+            state.datasetModel = null;
+            state.videoProcessModel = null;
+        },
     }
 });
 
@@ -75,7 +87,7 @@ export const process = createSlice({
 //  export the reducers to be used as actions
 export const { setProcessValues, datasetError, processStart, datasetSuccess,
     encodingError, encodingSuccess, videoDownloadError, videoDownloadSuccess,
-    videoFramesError, videoFramesSuccess, screenTimesError, screenTimeSuccess } = process.actions;
+    videoFramesError, videoFramesSuccess, screenTimesError, screenTimeSuccess, processReset } = process.actions;
 
 
 //  use dispatch to include thunk and make async actions

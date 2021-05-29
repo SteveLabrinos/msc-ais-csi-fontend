@@ -16,6 +16,8 @@ import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import CommentIcon from '@material-ui/icons/Comment';
 import { thousandsSeparator } from '../../shared/utility';
 import '../../assets/images/image-not-found.png';
+import './ActorScreenTimes';
+import ActorScreenTimes from './ActorScreenTimes';
 
 
 /**
@@ -64,12 +66,11 @@ const useStyles = makeStyles(({ palette }) => ({
         letterSpacing: '1px',
     },
     container: {
-        // marginTop: 16,
         marginBottom: 16
     }
 }));
 
-export const Videos = React.memo(function VideoCard({ videoList }) {
+export const Videos = React.memo(function VideoCard({ videoList, durationShow }) {
     const classes = useStyles();
     const shadowStyles = useFadedShadowStyles();
     const borderedGridStyles = useGutterBorderedGridStyles({
@@ -102,17 +103,23 @@ export const Videos = React.memo(function VideoCard({ videoList }) {
                         <Box display={'flex'}>
                             <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
                                 <p className={classes.statLabel}><ThumbUpIcon /></p>
-                                <p className={classes.statValue}>{video.likeCount}</p>
+                                <p className={classes.statValue}>{thousandsSeparator(video.likeCount)}</p>
                             </Box>
                             <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
                                 <p className={classes.statLabel}><ThumbDownAltIcon /></p>
-                                <p className={classes.statValue}>{video.dislikeCount}</p>
+                                <p className={classes.statValue}>{thousandsSeparator(video.dislikeCount)}</p>
                             </Box>
                             <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
                                 <p className={classes.statLabel}><CommentIcon /></p>
-                                <p className={classes.statValue}>{video.commentCount}</p>
+                                <p className={classes.statValue}>{thousandsSeparator(video.commentCount)}</p>
                             </Box>
                         </Box>
+                        {durationShow ?
+                            <ActorScreenTimes
+                                actors={video.actors}
+                                videoDuration={video.durationSeconds} /> :
+                            null
+                        }
                     </Card>
                 </Grid>
             ))}

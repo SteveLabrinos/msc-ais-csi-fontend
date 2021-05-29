@@ -7,7 +7,7 @@ import { baseURL } from '../../shared/utility';
  */
 
 // temporary setting
-const NUMBER_OF_VIDEOS = 5;
+const NUMBER_OF_VIDEOS = 4;
 
 export const dashboard = createSlice({
     name: 'dashboard',
@@ -18,6 +18,7 @@ export const dashboard = createSlice({
         videos: [],
         videoLoading: false,
         videoError: null,
+        displayVideoDuration: false,
     },
     reducers: {
         movieStart: state => {
@@ -48,6 +49,10 @@ export const dashboard = createSlice({
             state.videos = [];
             state.videoLoading = false;
             state.videoError = null;
+            state.displayVideoDuration = false;
+        },
+        setDisplayVideoDurations: state => {
+            state.displayVideoDuration = true;
         },
     }
 });
@@ -55,7 +60,8 @@ export const dashboard = createSlice({
 
 //  export the reducers to be used as actions
 export const { movieStart, movieFail, movieSuccess,
-    videoStart, videoFail, videoSuccess, videoClear } = dashboard.actions;
+    videoStart, videoFail, videoSuccess, videoClear,
+    setDisplayVideoDurations } = dashboard.actions;
 
 
 //  use dispatch to include thunk and make async actions

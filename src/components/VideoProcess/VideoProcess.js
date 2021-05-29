@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function VideoProcess() {
+export default function VideoProcess({ clicked }) {
     const classes = useStyles();
     const { dataset, encoding, videoDownload,
         videoFrames, screenTimes, loading, processError } = useSelector(processSelector);
@@ -132,6 +132,7 @@ export default function VideoProcess() {
                         fullWidth
                         color="primary"
                         className={classes.submit}
+                        onClick={clicked}
                     >
                         Επιστροφή
                     </Button>
