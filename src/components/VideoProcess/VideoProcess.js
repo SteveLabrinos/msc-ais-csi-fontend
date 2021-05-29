@@ -52,32 +52,32 @@ export default function VideoProcess({ clicked }) {
         videoFrames, screenTimes, loading, processError } = useSelector(processSelector);
 
     const displayDatasetCreation = !dataset ?
-        <Typography variant="h6" color="secondary" component="p" className={classes.loadingTypography}>
+        <Typography variant="h6" color="textPrimary" component="p" className={classes.loadingTypography}>
             <CircularIndeterminate />
-            Δημιουργία της βάσης γνώσεις με φωτογραφίες για τους ηθοποιούς της ταινίας
+            Δημιουργία της βάσης γνώσης με φωτογραφίες για τους ηθοποιούς της ταινίας
         </Typography> :
         <Typography variant="h6" color="secondary" component="p" style={{ marginTop: 8 }}>
             <CheckIcon style={{ color: 'green' }} />
-            Η βάση γνώσης ολοκληρώθηκε
+            Η βάση γνώσης δημιουργήθηκε
         </Typography>;
 
     const displayDatasetEncoding = dataset ?
         !encoding ?
-            <Typography variant="h6" component="p" color="secondary" className={classes.loadingTypography}>
+            <Typography variant="h6" component="p" color="textPrimary" className={classes.loadingTypography}>
                 <CircularIndeterminate />
-                Κωδικοποίηση των προσώπων από την βάση γνώσης με τη χρήση νευρωνικού δικτύου
+                Κωδικοποίηση προσώπων από την βάση γνώσης με χρήση νευρωνικού δικτύου
             </Typography> :
             <Typography variant="h6" component="p" color="secondary" style={{ marginTop: 8 }}>
                 <CheckIcon style={{ color: 'green' }} />
-                Η κωδικοποίηση των προσώπων της βάσης γνώσης ολοκληρώθηκε
+                Η κωδικοποίηση προσώπων της βάσης γνώσης ολοκληρώθηκε
             </Typography>
         : null;
 
     const displayVideoFrames = videoDownload ?
         !videoFrames ?
-            <Typography variant="h6" component="p" color="secondary" className={classes.loadingTypography}>
+            <Typography variant="h6" component="p" color="textPrimary" className={classes.loadingTypography}>
                 <CircularIndeterminate />
-                Εξαγωγή των καρέ των video για τον υπολογισμό χρόνου προβολής των ηθοποιών
+                Εξαγωγή καρέ από τα video για τον υπολογισμό χρόνου προβολής των ηθοποιών
             </Typography> :
             <Typography variant="h6" component="p" color="secondary" style={{ marginTop: 8 }}>
                 <CheckIcon style={{ color: 'green' }} />
@@ -88,25 +88,25 @@ export default function VideoProcess({ clicked }) {
 
     const displayVideoDownload = encoding ?
         !videoDownload ?
-            <Typography variant="h6" component="p" color="secondary" className={classes.loadingTypography}>
+            <Typography variant="h6" component="p" color="textPrimary" className={classes.loadingTypography}>
                 <CircularIndeterminate />
-                Λήψη βίνεο από το YouTube για τον υπολογισμό χρόνου προβολής των ηθοποιών
+                Λήψη βίνεο από YouTube για τον υπολογισμό χρόνου προβολής ηθοποιών
             </Typography> :
             <Typography variant="h6" component="p" color="secondary" style={{ marginTop: 8 }}>
                 <CheckIcon style={{ color: 'green' }} />
-                Η λήψη των video από το YouTube ολοκληρώθηκε
+                Η λήψη video από το YouTube ολοκληρώθηκε
             </Typography>
         : null;
 
     const displayScreenTimes = videoFrames ?
         !screenTimes ?
-            <Typography variant="h6" component="p" color="secondary" className={classes.loadingTypography}>
+            <Typography variant="h6" component="p" color="textPrimary" className={classes.loadingTypography}>
                 <CircularIndeterminate />
-                Υπολογισμός του χρόνου εμφάνισης των ηθοποιών για κάθε video με χρήση νευρωνικού δικτύου
+                Υπολογισμός χρόνου εμφάνισης των ηθοποιών ανά video με χρήση νευρωνικού δικτύου
             </Typography> :
             <Typography variant="h6" component="p" color="secondary" style={{ marginTop: 8 }}>
                 <CheckIcon style={{ color: 'green' }} />
-                Ο υπολογισμός του χρόνου εμφάνισης ολοκληρώθηκε
+                Ο υπολογισμός των χρόνων εμφάνισης ολοκληρώθηκε
             </Typography>
         : null;
 
