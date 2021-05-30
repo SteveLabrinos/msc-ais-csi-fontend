@@ -29,7 +29,6 @@ function App() {
 
   const routing = (
       <Switch>
-        {/*<Route path="/reports" render={ props => <Report {...props} /> } />*/}
         <Route path="/" exact render={ props => <Dashboard {...props} /> } />
         <Redirect to="/" />
       </Switch>

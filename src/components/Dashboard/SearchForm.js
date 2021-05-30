@@ -22,7 +22,7 @@ export default function SearchForm(props) {
                         label="Ταινία"
                         placeholder="Εισάγετε Όνομα Ταινίας"
                         fullWidth
-                        inputProps={{ pattern: '[a-zA-Z ]{1,15}' }}
+                        // inputProps={{ pattern: '[a-zA-Z ]{1,15}' }}
                         value={query}
                     />
                 </Grid>

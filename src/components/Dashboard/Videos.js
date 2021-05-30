@@ -95,24 +95,36 @@ export const Videos = React.memo(function VideoCard({ videoList, durationShow })
                                     {video.title}
                                 </Typography>
                                 <span className={classes.subheader}>
-                                    {`${thousandsSeparator(video.viewCount)} προβολές`}
+                                    {video.viewCount ? `${thousandsSeparator(video.viewCount)} προβολές` : null}
                                 </span>
                             </CardContent>
                         </CardActionArea>
                         <Divider light />
                         <Box display={'flex'}>
-                            <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
-                                <p className={classes.statLabel}><ThumbUpIcon /></p>
-                                <p className={classes.statValue}>{thousandsSeparator(video.likeCount)}</p>
-                            </Box>
-                            <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
-                                <p className={classes.statLabel}><ThumbDownAltIcon /></p>
-                                <p className={classes.statValue}>{thousandsSeparator(video.dislikeCount)}</p>
-                            </Box>
-                            <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
-                                <p className={classes.statLabel}><CommentIcon /></p>
-                                <p className={classes.statValue}>{thousandsSeparator(video.commentCount)}</p>
-                            </Box>
+                            {video.likeCount ?
+                                <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
+                                    <p className={classes.statLabel}><ThumbUpIcon /></p>
+                                    <p className={classes.statValue}>
+                                        {thousandsSeparator(video.likeCount)}
+                                    </p>
+                                </Box> : null
+                            }
+                            {video.dislikeCount ?
+                                <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
+                                    <p className={classes.statLabel}><ThumbDownAltIcon /></p>
+                                    <p className={classes.statValue}>
+                                        {thousandsSeparator(video.dislikeCount)}
+                                    </p>
+                                </Box> : null
+                            }
+                            {video.commentCount ?
+                                <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
+                                    <p className={classes.statLabel}><CommentIcon /></p>
+                                    <p className={classes.statValue}>
+                                        {thousandsSeparator(video.commentCount)}
+                                    </p>
+                                </Box> : null
+                            }
                         </Box>
                         {durationShow ?
                             <ActorScreenTimes

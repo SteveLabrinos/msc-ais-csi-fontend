@@ -58,7 +58,7 @@ export default function Dashboard () {
         videos, videoLoading, videoError} = useSelector(dashboardSelector);
 
     // movie search field value handler
-    const [query, setQuery] = useState('inception');
+    const [query, setQuery] = useState('');
 
     // calling the reducer to get the movie
     const onFetchMovie = useCallback(event => {

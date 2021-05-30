@@ -161,7 +161,7 @@ export default function ActorScreenTimes({ actors, videoDuration }) {
                 </Row>
                 {
                     actors.map((actor, i) => (
-                        <React.Fragment>
+                        <React.Fragment key={actor.id}>
                             <PersonItem
                                 name={actor.name}
                                 roleName={actor.roleName}
